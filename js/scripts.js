@@ -17,6 +17,7 @@ const backgroundImages = [
 ]
 
 //FUNÇÕES
+// saveTodo(): Adiciona uma nova tarefa à lista e a salva no LocalStorage.
 const saveTodo = (text, done = 0, save = 1) => {
   const todo = document.createElement("div");
   todo.classList.add("todo");
@@ -55,12 +56,14 @@ const saveTodo = (text, done = 0, save = 1) => {
   todoInput.focus();
 };
 
+// toggleForms(): Alterna entre o formulário de adição e o de edição de tarefas.
 const toggleForms = () => {
   editForm.classList.toggle("hide");
   todoForm.classList.toggle("hide");
   todoList.classList.toggle("hide");
 };
 
+// updateTodo(): Atualiza uma tarefa existente tanto na interface quanto no LocalStorage.
 const updateTodo = (text) => {
   const todos = document.querySelectorAll(".todo");
 
@@ -75,6 +78,7 @@ const updateTodo = (text) => {
   });
 };
 
+// getSearchTodos(): Filtra as tarefas com base no texto inserido no campo de pesquisa.
 const getSearchTodos = (search) => {
   const todos = document.querySelectorAll(".todo");
 
@@ -91,6 +95,7 @@ const getSearchTodos = (search) => {
   });
 };
 
+// filterTodos(): Filtra as tarefas por status (concluídas ou pendentes).
 const filterTodos = (filterValue) => {
   const todos = document.querySelectorAll(".todo");
 
@@ -121,6 +126,7 @@ const filterTodos = (filterValue) => {
 };
 
 //EVENTOS
+// submit no todoForm: Quando o formulário é submetido, a função saveTodo() é chamada.
 todoForm.addEventListener("submit", (e) => {
   e.preventDefault();
 
@@ -131,6 +137,7 @@ todoForm.addEventListener("submit", (e) => {
   }
 });
 
+// click nos botões de cada tarefa: Lida com marcar como concluída, remover ou editar uma tarefa.
 document.addEventListener("click", (e) => {
   const targetEl = e.target;
   const parentEl = targetEl.closest("div");
@@ -178,6 +185,7 @@ editForm.addEventListener("submit", (e) => {
   toggleForms();
 });
 
+// keyup no searchInput: Filtra as tarefas conforme o usuário digita no campo de busca.
 searchInput.addEventListener("keyup", (e) => {
   const search = e.target.value;
 
@@ -192,6 +200,7 @@ eraseBtn.addEventListener("click", (e) => {
   searchInput.dispatchEvent(new Event("keyup"));
 });
 
+// change no filterBtn: Aplica o filtro selecionado para exibir todas as tarefas, feitas ou pendentes.
 filterBtn.addEventListener("change", (e) => {
   const filterValue = e.target.value;
 
@@ -199,12 +208,14 @@ filterBtn.addEventListener("change", (e) => {
 });
 
 // LOCAL STORAGE //
+// getTodosLocalStorage(): Recupera a lista de tarefas do LocalStorage.
 const getTodosLocalStorage = () => {
   const todos = JSON.parse(localStorage.getItem("todos")) || [];
 
   return todos;
 };
 
+// loadTodos(): Carrega as tarefas do LocalStorage ao iniciar a aplicação.
 const loadTodos = () => {
   const todos = getTodosLocalStorage();
 
@@ -213,6 +224,7 @@ const loadTodos = () => {
   });
 };
 
+// saveTodoLocalStorage(): Salva uma nova tarefa no LocalStorage.
 const saveTodoLocalStorage = (todo) => {
   const todos = getTodosLocalStorage();
 
@@ -221,6 +233,7 @@ const saveTodoLocalStorage = (todo) => {
   localStorage.setItem("todos", JSON.stringify(todos));
 };
 
+// removeTodoLocalStorage(): Remove uma tarefa do LocalStorage.
 const removeTodoLocalStorage = (todoText) => {
   const todos = getTodosLocalStorage();
 
@@ -229,6 +242,7 @@ const removeTodoLocalStorage = (todoText) => {
   localStorage.setItem("todos", JSON.stringify(filteredTodos));
 };
 
+// updateTodoStatusLocalStorage(): Atualiza o status de uma tarefa (concluída ou pendente) no LocalStorage.
 const updateTodoStatusLocalStorage = (todoText) => {
   const todos = getTodosLocalStorage();
 
@@ -239,6 +253,7 @@ const updateTodoStatusLocalStorage = (todoText) => {
   localStorage.setItem("todos", JSON.stringify(todos));
 };
 
+// updateTodoLocalStorage(): Atualiza o texto de uma tarefa no LocalStorage.
 const updateTodoLocalStorage = (todoOldText, todoNewText) => {
   const todos = getTodosLocalStorage();
 
